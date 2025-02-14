@@ -1,12 +1,20 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+const config = require('config');
+const dbgr = require('debug')('development:mongoose');
+// debug.enable('development:mongoose');
+// const dbgr = debug('development:mongoose');
+
+// for setting env in window we can use $env:DEBUG="development:*" this command and set our environment to developement
+
+
 
 mongoose
-.connect("mongodb://127.0.0.1:27017/scatch")
+.connect(`${config.get("MONGODB_URL")}/scatch`)
 .then(function(){
-    console.log("Connected");
+    dbgr("Connected");
 })
 .catch(function(err){
-    console.log(err);
+    dbgr(err);
 })
 
 module.exports = mongoose.connection;
